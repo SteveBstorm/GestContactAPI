@@ -1,0 +1,24 @@
+﻿** Met en surbrillance
+     Tables à reconstruire
+       Aucun
+     Index ordonnés en clusters à supprimer
+       Aucun
+     Index ordonnés en clusters à créer.
+       Aucun
+     Problèmes de données possibles
+       Aucun
+
+** Actions de l'utilisateur
+     Créer
+       [dbo].[Contact] (Table)
+       [dbo].[User] (Table)
+       [dbo].[FK_Contact_User] (Clé étrangère)
+       [dbo].[GetPostSalt] (Fonction)
+       [dbo].[GetPreSalt] (Fonction)
+       [dbo].[AddContact] (Procédure)
+       [dbo].[DeleteContact] (Procédure)
+       [dbo].[LoginUser] (Procédure)
+       [dbo].[RegisterUser] (Procédure)
+       [dbo].[UpdateContact] (Procédure)
+
+** Actions de support
