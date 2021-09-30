@@ -11,13 +11,16 @@ namespace Consommation
 {
     class Program
     {
-        public static List<Contact> GetContact()
+        public static List<Contact> GetContact(string token = null)
         {
             HttpClient client = new HttpClient();
 
             client.BaseAddress = new Uri("http://localhost:31101/api/");
 
-            using (HttpResponseMessage message = client.GetAsync("contact/UserContact/1").Result)
+            if(!(token is null))
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            using (HttpResponseMessage message = client.GetAsync("contact/UserContact").Result)
             {
                 if (!message.IsSuccessStatusCode)
                     Console.WriteLine(message.StatusCode);
@@ -36,7 +39,7 @@ namespace Consommation
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:31101/api/");
 
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "monToken");
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "monToken");
 
             string jsonBody = JsonConvert.SerializeObject(new { email = email, password = password });
             HttpContent content = new StringContent(jsonBody, Encoding.UTF8, "application/json");
@@ -57,19 +60,21 @@ namespace Consommation
 
         static void Main(string[] args)
         {
-            //List<Contact> listeContact = GetContact();
-
-
-            //foreach (Contact item in listeContact)
-            //{
-            //    Console.WriteLine(item.FirstName + " - " + item.LastName);
-            //    Console.WriteLine(item.Email + " - " + item.Phone);
-            //}
+            
 
             User connectedUser = Login("steve.lorent@bstorm.be", "Test1234=");
 
-            Console.WriteLine(connectedUser.Email);
-            Console.WriteLine(connectedUser.FirstName + " " + connectedUser.LastName);
+            List<Contact> listeContact = GetContact(connectedUser.Token);
+
+
+            foreach (Contact item in listeContact)
+            {
+                Console.WriteLine(item.FirstName + " - " + item.LastName);
+                Console.WriteLine(item.Email + " - " + item.Phone);
+            }
+
+            //Console.WriteLine(connectedUser.Email);
+            //Console.WriteLine(connectedUser.FirstName + " " + connectedUser.LastName);
 
             
         }

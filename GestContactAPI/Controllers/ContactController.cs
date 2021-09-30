@@ -1,11 +1,13 @@
 ﻿using BusinessLogicLayer.Interfaces;
 using GestContactAPI.Models;
 using GestContactAPI.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GestContactAPI.Controllers
@@ -21,10 +23,14 @@ namespace GestContactAPI.Controllers
             _contactServices = contactServices;
         }
 
-        [HttpGet("UserContact/{id}")]
-        public IActionResult GetByUserId(int id)
+        [Authorize("isConnected")]
+        [HttpGet("UserContact")]
+        public IActionResult GetByUserId()
         {
-            return Ok(_contactServices.Get(id));
+            ClaimsPrincipal cp = HttpContext.User;
+            string Id = cp.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Sid).Value;
+
+            return Ok(_contactServices.Get(int.Parse(Id)));
         }
 
         [HttpGet("ContactDetail/{id}")]
@@ -33,6 +39,7 @@ namespace GestContactAPI.Controllers
             return Ok(_contactServices.GetById(id));
         }
 
+        [Authorize("isConnected")]
         [HttpPost]
         public IActionResult Register(ContactForm form)
         {

@@ -16,10 +16,12 @@ namespace GestContactAPI.Controllers
     public class UserController : ControllerBase
     {
         private IUserClientRepo _userService;
+        private ITokenManager _tokenManager;
 
-        public UserController(IUserClientRepo userService)
+        public UserController(IUserClientRepo userService, ITokenManager tokenManager)
         {
             _userService = userService;
+            _tokenManager = tokenManager;
         }
 
         [HttpPost("login")]
@@ -31,7 +33,17 @@ namespace GestContactAPI.Controllers
             {
                 return BadRequest("Utilisateur null");
             }
-            return Ok(currentUser);
+
+            UserWithToken user = new UserWithToken
+            {
+                Id = currentUser.Id,
+                Email = currentUser.Email,
+                FirstName = currentUser.FirstName,
+                LastName = currentUser.LastName,
+                Token = _tokenManager.GenerateJWT(currentUser)
+            };
+
+            return Ok(user);
         }
 
         [HttpPost("register")]

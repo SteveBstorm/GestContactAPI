@@ -39,3 +39,10 @@ C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\obj\Debug
 C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\obj\Debug\net5.0\ref\GestContactAPI.dll
 C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\obj\Debug\net5.0\GestContactAPI.pdb
 C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\obj\Debug\net5.0\GestContactAPI.genruntimeconfig.cache
+C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Steve\source\Exemple\NetAngular\GestContactAPI\GestContactAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
