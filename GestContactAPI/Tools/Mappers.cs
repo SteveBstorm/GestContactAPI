@@ -14,14 +14,15 @@ namespace GestContactAPI.Tools
             return new UserClient(form.LastName, form.FirstName, form.Email, form.Passwd);
         }
 
-        public static ContactClient toBll(this ContactForm form)
+        public static ContactClient toBll(this ContactForm form, int userId)
         {
-            return new ContactClient(form.LastName, form.FirstName, form.Email, form.Phone, form.BirthDate, 2);
+            
+            return new ContactClient(form.LastName, form.FirstName, form.Email, form.Phone, form.BirthDate, userId);
         }
 
-        public static ContactClient toBll(this UpdateContactForm form)
+        public static ContactClient toBll(this UpdateContactForm form, int userId)
         {
-            return new ContactClient(form.Id,form.LastName, form.FirstName, form.Email, form.Phone, form.BirthDate, 2);
+            return new ContactClient(form.Id,form.LastName, form.FirstName, form.Email, form.Phone, form.BirthDate, userId);
         }
     }
 }

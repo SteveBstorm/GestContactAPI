@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace GestContactAPI.Controllers
 {
+    [Authorize("isConnected")]
     [Route("api/[controller]")]
     [ApiController]
     public class ContactController : ControllerBase
@@ -23,48 +24,56 @@ namespace GestContactAPI.Controllers
             _contactServices = contactServices;
         }
 
-        [Authorize("isConnected")]
+        //[Authorize("isConnected")]
         [HttpGet("UserContact")]
         public IActionResult GetByUserId()
         {
-            ClaimsPrincipal cp = HttpContext.User;
-            string Id = cp.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Sid).Value;
-
-            return Ok(_contactServices.Get(int.Parse(Id)));
+            return Ok(_contactServices.Get(GetConnectedUserId()));
         }
 
+        [AllowAnonymous]
         [HttpGet("ContactDetail/{id}")]
         public IActionResult GetById(int id)
         {
             return Ok(_contactServices.GetById(id));
         }
 
-        [Authorize("isConnected")]
+        //[Authorize("isConnected")]
         [HttpPost]
         public IActionResult Register(ContactForm form)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _contactServices.Insert(form.toBll());
+            _contactServices.Insert(form.toBll(GetConnectedUserId()));
             return Ok();
         }
 
+       // [Authorize("isConnected")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _contactServices.Delete(2, id);
+            _contactServices.Delete(GetConnectedUserId(), id);
             return Ok();
         }
 
-
+        //[Authorize("isConnected")]
         [HttpPut]
         public IActionResult Update(UpdateContactForm form)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-            _contactServices.Update(form.Id, form.toBll());
+
+            _contactServices.Update(form.Id, form.toBll(GetConnectedUserId()));
             return Ok();
+        }
+
+        private int GetConnectedUserId()
+        {
+            ClaimsPrincipal cp = HttpContext.User;
+            string Id = cp.Claims.SingleOrDefault(c => c.Type == ClaimTypes.Sid).Value;
+
+            return int.Parse(Id);
         }
     }
 }
