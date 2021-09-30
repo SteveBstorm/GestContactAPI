@@ -25,7 +25,12 @@ namespace GestContactAPI.Controllers
         [HttpPost("login")]
         public IActionResult Login(LoginForm form)
         {
+
             UserClient currentUser = _userService.Login(form.Email, form.Password);
+            if(currentUser is null)
+            {
+                return BadRequest("Utilisateur null");
+            }
             return Ok(currentUser);
         }
 

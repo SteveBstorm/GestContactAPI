@@ -33,6 +33,13 @@ namespace GestContactAPI
 
             services.AddControllers();
 
+            /*
+             Singleton => Une seule instance du service pour la durée de vie de l'application
+             Scoped => Une nouvelle instance à chaque appel client 
+                    => Chaque fois qu'un client va interroger le controller, l'instance de services va être crée pour
+                       toute la durée de l'appel
+             Transient => Une nouvelle instance à chaque appel du service
+             */
             services.AddSingleton(sp => new Connection(Configuration.GetConnectionString("default")));
 
             services.AddScoped<IContactGlobalRepo, ContactGlobalService>();
